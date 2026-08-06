@@ -67,7 +67,7 @@ export function RevenueChart({
   loading: boolean
 }) {
   return (
-    <ChartCard title="Revenue" caption="Last 6 months" loading={loading || !data}>
+    <ChartCard title="Revenue" caption="GH₵ · last 6 months" loading={loading || !data}>
       <ChartContainer config={revenueConfig} className="mt-4 h-52 w-full">
         <AreaChart data={data} margin={{ top: 8, right: 8, left: -12, bottom: 0 }}>
           <defs>
@@ -85,12 +85,14 @@ export function RevenueChart({
             axisLine={false}
             tickMargin={8}
           />
+          {/* Unit lives in the caption and tooltip — repeating "GH₵" per tick
+              overflows the gutter and clips. Ticks stay clean comma'd numbers. */}
           <YAxis
             tick={AXIS_TICK}
             tickLine={false}
             axisLine={false}
-            width={56}
-            tickFormatter={(v: number) => `GH₵${v.toLocaleString()}`}
+            width={48}
+            tickFormatter={(v: number) => v.toLocaleString()}
           />
           <ChartTooltip
             cursor={{ stroke: "var(--border)", strokeWidth: 1 }}
